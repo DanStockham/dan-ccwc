@@ -46,7 +46,6 @@ Print only the word counts. A word is a nonzero length sequence of printable cha
 
 `-l`
 `--lines`
-**NOT IMPLEMENTED**
 
 Print only the newline character counts. Note a file without a trailing newline character, will not have that last portion included in the line count.
 

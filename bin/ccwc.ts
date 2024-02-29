@@ -13,11 +13,13 @@ interface Arguments {
 interface Output {
   byteCount: number;
   fileName: string | undefined;
+  lineCount: number | undefined;
 }
 
 const parser = yargs(process.argv.slice(2))
   .option({
-    'c': { alias: "bytes", describe: "Outputs the amount bytes in a file", type: "boolean", demandOption: false }
+    'c': { alias: "bytes", describe: "Outputs the amount bytes in a file", type: "boolean", demandOption: false },
+    'l': { alias: "lines", describe: "Outputs the amount lines in a file", type: "boolean", demandOption: false }
   });
 
   (async() => {
@@ -26,7 +28,8 @@ const parser = yargs(process.argv.slice(2))
     const argv: Arguments = await parser.parse();
     const outputResult: Output = {
       byteCount: 0,
-      fileName: undefined
+      fileName: undefined,
+      lineCount: 0
     }
 
     console.log(argv);
@@ -44,6 +47,10 @@ const parser = yargs(process.argv.slice(2))
 
     if (argv.c && fileContents) {
       outputResult.byteCount = fileContents.byteLength;
+    }
+
+    if(argv.l && fileContents) {
+      outputResult.lineCount = fileContents.toString().split('\n').length;
     }
 
     console.table(outputResult);
