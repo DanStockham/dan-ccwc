@@ -29,7 +29,6 @@ CCWC, similar to wc, provides a line of counts for each specified file, followed
 
 `-c`
 `--bytes`
-**NOT IMPLEMENTED**
 
 Print only the byte counts.
 

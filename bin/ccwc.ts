@@ -17,7 +17,7 @@ interface Output {
 
 const parser = yargs(process.argv.slice(2))
   .option({
-    'c': { alias: "count", describe: "Outputs the amount bytes in a file", type: "boolean", demandOption: false }
+    'c': { alias: "bytes", describe: "Outputs the amount bytes in a file", type: "boolean", demandOption: false }
   });
 
   (async() => {
