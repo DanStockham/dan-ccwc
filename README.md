@@ -40,7 +40,6 @@ Print only the character counts, as per the current locale. Invalid characters a
 
 `-w`
 `--words`
-**NOT IMPLEMENTED**
 
 Print only the word counts. A word is a nonzero length sequence of printable characters separated by white space.
 

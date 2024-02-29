@@ -14,12 +14,14 @@ interface Output {
   byteCount: number;
   fileName: string | undefined;
   lineCount: number | undefined;
+  wordCount: number | undefined;
 }
 
 const parser = yargs(process.argv.slice(2))
   .option({
     'c': { alias: "bytes", describe: "Outputs the amount bytes in a file", type: "boolean", demandOption: false },
-    'l': { alias: "lines", describe: "Outputs the amount lines in a file", type: "boolean", demandOption: false }
+    'l': { alias: "lines", describe: "Outputs the amount lines in a file", type: "boolean", demandOption: false },
+    'w': { alias: "words", describe: "Outputs the amount words in a file", type: "boolean", demandOption: false }
   });
 
   (async() => {
@@ -29,7 +31,8 @@ const parser = yargs(process.argv.slice(2))
     const outputResult: Output = {
       byteCount: 0,
       fileName: undefined,
-      lineCount: 0
+      lineCount: 0,
+      wordCount: 0,
     }
 
     console.log(argv);
@@ -51,6 +54,11 @@ const parser = yargs(process.argv.slice(2))
 
     if(argv.l && fileContents) {
       outputResult.lineCount = fileContents.toString().split('\n').length;
+    }
+
+    if(argv.w && fileContents) {
+      const wordPattern = /\s\S/g;
+      outputResult.wordCount = [...fileContents.toString().split(wordPattern)].length;
     }
 
     console.table(outputResult);
