@@ -34,7 +34,6 @@ Print only the byte counts.
 
 `-m`
 `--chars`
-**NOT IMPLEMENTED**
 
 Print only the character counts, as per the current locale. Invalid characters are not counted.
 
