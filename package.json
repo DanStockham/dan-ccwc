@@ -13,7 +13,7 @@
     "start": "node ./dist/ccwc.js"
   },
   "author": "DanStockham",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "yargs": "^17.7.2"
   },
