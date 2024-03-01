@@ -3,7 +3,7 @@
   "version": "0.4.0",
   "type": "module",
   "bin": {
-    "ccwc": "./dist/ccwc.js"
+    "dan-ccwc": "./dist/ccwc.js"
   },
   "description": "A tribute to the 'wc' unit command to count the amount of lines, words, and bytes in a text file",
   "main": "./dist/ccwc.js",

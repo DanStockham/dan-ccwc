@@ -12,7 +12,7 @@ interface Arguments {
 }
 
 interface Output {
-  byteCount: number;
+  byteCount: number | undefined;
   fileName: string | undefined;
   lineCount: number | undefined;
   wordCount: number | undefined;
@@ -58,11 +58,11 @@ const parser = yargs(process.argv.slice(2))
 
   const argv: Arguments = await parser.parse();
   const outputResult: Output = {
-    byteCount: 0,
+    byteCount: undefined,
     fileName: undefined,
-    lineCount: 0,
-    wordCount: 0,
-    charCount: 0
+    lineCount: undefined,
+    wordCount: undefined,
+    charCount: undefined
   }
 
   outputResult.fileName = argv['_']?.[0] as string; // Cast the value to string
@@ -77,36 +77,43 @@ const parser = yargs(process.argv.slice(2))
     process.exit(1);
   });
 
+  let outputString = '';
+
   if(!argv.c && !argv.l && !argv.w && !argv.m) {
     const wordPattern = /\s\S/g;
     outputResult.byteCount = fileContents.byteLength;
     outputResult.lineCount = fileContents.toString().split('\n').length;
     outputResult.wordCount = [...fileContents.toString().split(wordPattern)].length;
-    console.table(outputResult);
+    console.log(`bytes: ${outputResult.byteCount}; lines: ${outputResult.lineCount}; words: ${outputResult.wordCount}; ${outputResult.fileName}`)
 
     process.exit(0);
   }
 
   if (argv.c && fileContents) {
     outputResult.byteCount = fileContents.byteLength;
+    outputString += `bytes: ${outputResult.byteCount}; `;
   }
 
   if (argv.l && fileContents) {
     outputResult.lineCount = fileContents.toString().split('\n').length;
+    outputString += `lines: ${outputResult.lineCount}; `;
   }
 
   if (argv.w && fileContents) {
     const wordPattern = /\s\S/g;
     outputResult.wordCount = [...fileContents.toString().split(wordPattern)].length;
+    outputString += `words: ${outputResult.wordCount}; `;
   }
 
   if (argv.m && fileContents) {
-    if(!multiByteSupport) {
+    if(!multiByteSupport && !argv.c) {
       outputResult.byteCount = fileContents.byteLength;
     }
 
     outputResult.charCount = fileContents.toString().length;
+    outputString += `chars: ${outputResult.charCount}; `;
   }
 
-  console.table(outputResult);
+  outputString += `${outputResult.fileName}`;
+  console.log(outputString);
 })();
